@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+  <div class="background">
+    <div class="body-wrapper">
+      <div class="contant-wrapper">
+        <div class="container">
+          <div class="text-content">
+            <h1 class="title">
+              Recipe Search
+            </h1>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Type one or more keywords" aria-label="" aria-describedby="button-addon2" #searchTerm>
+              <button class="btn btn-primary" type="button" id="button-addon2" (click)="searchRecipe(searchTerm.value)">Search</button>
+            </div>
+            <div class="input-group mb-3">
+              <input type="file" class="file-input" (change)="onFileSelected($event)" placeholder="Upload Image" aria-label="" aria-describedby="button-addon2">
+              <button class="btn btn-primary" type="button" (click)="fileUpload()" id="button-addon2">Upload</button>
+            </div>
+          </div>
+
+          <div class="background">
+            <div class="basic-grid">
+              <div class="card" style="width: 18rem;" *ngFor="let recipe of recipesList">
+                <img src={{recipe.imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{recipe.label}}</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Calories: </strong>{{recipe.caloriesPerServings.toFixed(2)}} kcal</li>
+                    <li class="list-group-item"><strong>Servings: </strong>{{recipe.servings}} pax</li>
+                    <li class="list-group-item"><strong>Ingredients: </strong>{{recipe.ingredients.length}}</li>
+                  </ul>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']" (click)="tempRecipe(recipe)" [state]="{ data: 'listRecipe'}">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-background></app-background>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

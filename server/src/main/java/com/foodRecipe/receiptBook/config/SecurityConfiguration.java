@@ -1,7 +1,6 @@
 package com.foodRecipe.receiptBook.config;
 
 import com.foodRecipe.receiptBook.service.JwtAuthentication.JwtAuthenticationFilter;
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +26,7 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**", "/api/v1/demo/**")
+                .requestMatchers("/api/v1/auth/**", "/api/v1/demo/**", "/api/recipes/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
