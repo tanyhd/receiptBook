@@ -25,4 +25,9 @@ public class RecipesController {
     public CompletableFuture<ResponseEntity<List<Recipe>>> getRecipes(@PathVariable String food) {
         return recipeService.getRecipe(food).thenApply(ResponseEntity::ok);
     }
+
+    @GetMapping(path="/api/recipes/meal/{mealRequirement}")
+    public CompletableFuture<ResponseEntity<List<Recipe>>> getRecipesBaseOnRequirement(@PathVariable String mealRequirement) {
+        return recipeService.getRecipesBaseOnRequirement(mealRequirement).thenApply(ResponseEntity::ok);
+    }
 }

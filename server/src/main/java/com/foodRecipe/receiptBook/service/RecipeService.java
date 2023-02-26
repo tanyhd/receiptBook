@@ -46,6 +46,31 @@ public class RecipeService {
         });
     }
 
+    public CompletableFuture<List<Recipe>> getRecipesBaseOnRequirement(String mealRequirement) {
+        String requirment[] = mealRequirement.split(" ");
+        String diet = requirment[0];
+        String mealType = requirment[1];
+        String calories = requirment[2];
+
+        return CompletableFuture.supplyAsync(() -> edamamApi.getMealRequirementRecipeOverview(EDAMAM_APP_ID, EDAMAM_APP_KEY, diet, mealType, calories)).thenApply(recipeResponseOverview -> {
+            List<Recipe> recipeList = new ArrayList<>();
+            recipeResponseOverview.getHits().forEach(overview -> {
+                recipeList.add(Recipe.builder()
+                        .label(overview.getRecipe().getLabel())
+                        .imageUrl(overview.getRecipe().getImage())
+                        .servings(overview.getRecipe().getYield())
+                        .totalTime(overview.getRecipe().getTotalTime())
+                        .calories(overview.getRecipe().getCalories())
+                        .caloriesPerServings(getCaloriesPerServings(overview))
+                        .ingredients(getIngredients(overview))
+                        .source(overview.getRecipe().getSource())
+                        .url(overview.getRecipe().getUrl())
+                        .build());
+            });
+            return recipeList;
+        });
+    }
+
     private static List<Ingredients> getIngredients(RecipeResponseOverview.Overview overview) {
         List<Ingredients> ingredientsList = new ArrayList<>();
         overview.getRecipe().getIngredients().forEach(ingredients -> {

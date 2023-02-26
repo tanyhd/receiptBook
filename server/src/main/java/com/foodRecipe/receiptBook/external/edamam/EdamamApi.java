@@ -15,4 +15,12 @@ public interface EdamamApi {
             @Param("appKey") String appKey
     );
 
+    @RequestLine("GET /api/recipes/v2?type=public&app_id={appId}&app_key={appKey}&diet={diet}&mealType={mealType}&calories={calories}&imageSize=REGULAR&random=true")
+    RecipeResponseOverview getMealRequirementRecipeOverview(
+            @Param("appId") String appId,
+            @Param("appKey") String appKey,
+            @Param("diet") String diet,
+            @Param("mealType") String mealType,
+            @Param("calories") String calories
+    );
 }
