@@ -1,5 +1,7 @@
 package com.foodRecipe.receiptBook.model.user;
 
+import com.foodRecipe.receiptBook.model.InventoryLineItem;
+import com.foodRecipe.receiptBook.model.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,13 +24,19 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
-    private String firstname;
-    private String lastname;
+    private String name;
     @Column(unique = true)
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipe_id")
+    private List<Recipe> recipesList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lineItem_id")
+    private List<InventoryLineItem> lineItem;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

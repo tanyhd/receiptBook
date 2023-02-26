@@ -18,7 +18,6 @@
               Welcome {{userInfo.name}}
             </h1>
             <h2>Profile Page</h2>
-            <p>Username: {{userInfo.username}}</p>
             <p>Email: {{userInfo.email}}</p>
             <h2>Inventory List <span><button type="button" class="btn btn-primary" (click)="addInput()">Add</button></span></h2>
             <tr *ngIf="lineItemFormArray.value != 0 ||  listOfLineItem.length!= 0">

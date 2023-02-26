@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit {
   lineItemFormArray!: FormArray
   listOfLineItem: LineItem[] = []
   recipesList: Recipe[] = []
-  recipesListAsString: string = ""
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService) { }
 
@@ -26,16 +25,18 @@ export class ProfileComponent implements OnInit {
     if (window.sessionStorage.getItem("userInfo") === null) {
     } else {
       this.userInfo = JSON.parse(window.sessionStorage.getItem("userInfo") || "")
+      /*
       if(this.userInfo.recipeListString != "") {
         this.recipesListAsString = this.userInfo.recipeListString.substring(1, this.userInfo.recipeListString.length - 1)
         for(let i=0; i < this.recipesListAsString.length; i++) {
           this.recipesListAsString = this.recipesListAsString.replace("\\", "")
         }
       }
+      */
 
       if (window.sessionStorage.getItem("saveRecipeList")?.length == 0 || window.sessionStorage.getItem("saveRecipeList") === null) {
         try {
-          window.sessionStorage.setItem("saveRecipeList", JSON.stringify(JSON.parse(this.recipesListAsString)))
+          window.sessionStorage.setItem("saveRecipeList", JSON.stringify(this.userInfo.recipesList))
         } catch(e) {}
       }
       this.status = "login"
@@ -73,10 +74,19 @@ export class ProfileComponent implements OnInit {
       let temp = {name: this.lineItemFormArray.get(i.toString())!.value.name, quantity: this.lineItemFormArray.get(i.toString())!.value.quantity } as LineItem
       listOfItemToUpdate.push(temp)
     }
+
     window.sessionStorage.setItem("saveRecipeList", JSON.stringify(this.recipesList))
-    let tempUserInfo = { username: this.userInfo.username, name: this.userInfo.name, email: this.userInfo.email, lineItem: listOfItemToUpdate,  recipeListString: JSON.stringify(window.sessionStorage.getItem("saveRecipeList"))}
-    window.sessionStorage.setItem("userInfo", JSON.stringify(tempUserInfo))
-    this.userService.updateUser(tempUserInfo)
+    const recipesList = JSON.parse(window.sessionStorage.getItem("saveRecipeList") || "");
+    let tempUserInfo = { 
+      name: this.userInfo.name, 
+      email: this.userInfo.email, 
+      lineItem: listOfItemToUpdate,  
+      recipesList: recipesList
+    }
+
+    window.sessionStorage.setItem("userInfo", JSON.stringify(tempUserInfo));
+    const token = window.sessionStorage.getItem("token") || "nil";
+    this.userService.updateUser(tempUserInfo, token)
       .then(result => {
         console.log(result)
         alert("Information updated");

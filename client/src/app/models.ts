@@ -12,7 +12,6 @@ export interface Recipe{
 
 export class User {
   constructor(
-    public username: string,
     public name: string,
     public email: string,
     public password: string
@@ -33,14 +32,22 @@ export interface Ingredients {
 
 
 export interface UserInfo {
-  username: string;
   name: string;
   email: string;
   lineItem: LineItem[];
-  recipeListString: string;
+  recipesList: Recipe[];
+}
+
+export interface UserInfoResponse {
+  name: string;
+  email: string;
+  lineItem: LineItem[];
+  recipesList: Recipe[];
+  token: string;
 }
 
 export interface LineItem {
   name: string;
   quantity: number;
+
 }

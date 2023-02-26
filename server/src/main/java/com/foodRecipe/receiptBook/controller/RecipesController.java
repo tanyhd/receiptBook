@@ -2,6 +2,7 @@ package com.foodRecipe.receiptBook.controller;
 
 import com.foodRecipe.receiptBook.model.Recipe;
 import com.foodRecipe.receiptBook.service.RecipeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,15 +12,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
+@RequiredArgsConstructor
 public class RecipesController {
-
     private final RecipeService recipeService;
-
-    public RecipesController(
-            RecipeService recipeService
-    ) {
-        this.recipeService = recipeService;
-    }
 
     @GetMapping(path="/api/recipes/{food}")
     public CompletableFuture<ResponseEntity<List<Recipe>>> getRecipes(@PathVariable String food) {

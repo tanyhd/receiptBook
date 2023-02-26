@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { lastValueFrom } from "rxjs";
 import { User, UserInfo } from "./models";
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
@@ -9,19 +10,25 @@ export class UserService {
 
   addNewUser(user: User) {
     return (lastValueFrom(
-      this.http.post<any>("http://localhost:8080/api/user/Signup", user)
+      this.http.post<any>("http://localhost:8080/api/v1/auth/register", user)
     ))
   }
 
   userLogin(email: string, password: string) {
     return (lastValueFrom(
-      this.http.post<any>("http://localhost:8080/api/user/login", {"email": email, "password" : password})
+      this.http.post<any>("http://localhost:8080/api/v1/auth/authenticate", {"email": email, "password" : password})
     ))
   }
 
-  updateUser(userInfo: UserInfo) {
+  updateUser(userInfo: UserInfo, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
+    };
     return (lastValueFrom(
-      this.http.post<any>("http://localhost:8080/api/user/update", userInfo)
+      this.http.post<any>("http://localhost:8080/api/v1/user/update", userInfo, httpOptions)
     ))
   }
 }

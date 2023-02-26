@@ -5,24 +5,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder(toBuilder = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
-public class Ingredients {
+public class InventoryLineItem {
     @Id
     @GeneratedValue
     private Long id;
-    String text;
-    float quantity;
-    String measure;
-    String foodId;
-    String imageUrl;
-    String food;
+    String name;
+    int quantity;
 }

@@ -18,7 +18,6 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      username: this.fb.control("", [Validators.required, Validators.minLength(3)]),
       name: this.fb.control("", [Validators.required, Validators.minLength(3)]),
       email: this.fb.control("", [Validators.required, Validators.email]),
       password: this.fb.control("", [Validators.required, Validators.minLength(8)])
@@ -26,7 +25,7 @@ export class SignupComponent implements OnInit {
   }
 
   submitForm() {
-    let newUser = new User(this.form.value.username,
+    let newUser = new User(
                     this.form.value.name,
                     this.form.value.email,
                     this.form.value.password)

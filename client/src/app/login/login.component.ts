@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Recipe, UserInfo } from '../models';
+import { Recipe, UserInfo, UserInfoResponse } from '../models';
 import { UserService } from '../user.services';
 
 @Component({
@@ -12,7 +12,7 @@ import { UserService } from '../user.services';
 export class LoginComponent implements OnInit {
 
   form!: FormGroup
-  userInfo!: UserInfo
+  userInfoResponse!: UserInfoResponse
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
@@ -26,8 +26,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.userLogin(this.form.value.email, this.form.value.password)
       .then(result => {
-        this.userInfo = result as UserInfo
-        window.sessionStorage.setItem("userInfo", JSON.stringify(this.userInfo))
+        this.userInfoResponse = result as UserInfoResponse
+        window.sessionStorage.setItem("userInfo", JSON.stringify(this.userInfoResponse))
+        window.sessionStorage.setItem("token", this.userInfoResponse.token)
         this.router.navigate(['/profile'])
       }).catch(error => {
         console.log(error.message)
