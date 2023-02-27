@@ -1,4 +1,4 @@
-# Receipt Book
+# Receipt Book - https://recipe-book-be-production.up.railway.app/
 
 This repository contains the source code for a web application called Receipt Book, which allows users to search for different food recipes by typing in keywords, and also provides a meal planner function. The front-end of the application is built using Angular, and the back-end is built using Spring Boot. Spring Security is used to handle user login and sign out using JWT tokens, and the data is stored in a MySQL database.
 
