@@ -10,13 +10,13 @@ export class UserService {
 
   addNewUser(user: User) {
     return (lastValueFrom(
-      this.http.post<any>("https://recipe-book-be-production.up.railway.app/api/v1/auth/register", user)
+      this.http.post<any>("/api/v1/auth/register", user)
     ))
   }
 
   userLogin(email: string, password: string) {
     return (lastValueFrom(
-      this.http.post<any>("https://recipe-book-be-production.up.railway.app/api/v1/auth/authenticate", {"email": email, "password" : password})
+      this.http.post<any>("/api/v1/auth/authenticate", {"email": email, "password" : password})
     ))
   }
 
@@ -28,7 +28,7 @@ export class UserService {
       })
     };
     return (lastValueFrom(
-      this.http.post<any>("https://recipe-book-be-production.up.railway.app/api/v1/user/update", userInfo, httpOptions)
+      this.http.post<any>("/api/v1/user/update", userInfo, httpOptions)
     ))
   }
 }
