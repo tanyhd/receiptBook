@@ -37,4 +37,4 @@ Note: Make sure you have MySQL installed and running, and update the database co
 
 ## Summary
 
-The Recipe Book application provides users with a convenient way to search for food recipes and plan their meals for the week. It is built using a modern technology stack, making it highly scalable and customizable. Please feel free to contribute to the project by submitting pull requests or opening issues.
+The Recipe Book application provides users with a convenient way to search for food recipes and plan their meals for the week. Please feel free to contribute to the project by submitting pull requests or opening issues.
